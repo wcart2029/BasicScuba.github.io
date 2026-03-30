@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Scuba Diving Equipment Guide</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --deep: #020d1a;
+      --mid: #053554;
+      --surface: #0a6e9e;
+      --foam: #7dd8f5;
+      --light: #e8f7fd;
+      --accent: #f4a124;
+      --white: #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--deep);
+      color: var(--light);
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+      background: linear-gradient(175deg, #020d1a 0%, #053554 50%, #0a6e9e 100%);
+      overflow: hidden;
+    }
+
+    /* animated bubbles */
+    .bubbles { position: absolute; inset: 0; pointer-events: none; }
+    .bubble {
+      position: absolute;
+      bottom: -60px;
+      border-radius: 50%;
+      background: rgba(125, 216, 245, 0.15);
+      border: 1px solid rgba(125, 216, 245, 0.3);
+      animation: rise linear infinite;
+    }
+    .bubble:nth-child(1)  { width:18px; height:18px; left:10%; animation-duration:8s;  animation-delay:0s;   }
+    .bubble:nth-child(2)  { width:28px; height:28px; left:22%; animation-duration:11s; animation-delay:2s;   }
+    .bubble:nth-child(3)  { width:12px; height:12px; left:35%; animation-duration:7s;  animation-delay:4s;   }
+    .bubble:nth-child(4)  { width:22px; height:22px; left:50%; animation-duration:9s;  animation-delay:1s;   }
+    .bubble:nth-child(5)  { width:16px; height:16px; left:65%; animation-duration:10s; animation-delay:3s;   }
+    .bubble:nth-child(6)  { width:30px; height:30px; left:78%; animation-duration:12s; animation-delay:0.5s; }
+    .bubble:nth-child(7)  { width:10px; height:10px; left:88%; animation-duration:6s;  animation-delay:5s;   }
+    @keyframes rise {
+      0%   { transform: translateY(0) translateX(0);    opacity: 0; }
+      10%  { opacity: 1; }
+      90%  { opacity: 0.6; }
+      100% { transform: translateY(-110vh) translateX(20px); opacity: 0; }
+    }
+
+    .hero-tag {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      font-size: 0.85rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--foam);
+      margin-bottom: 1rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.3s;
+    }
+    .hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.5rem, 10vw, 8rem);
+      line-height: 0.95;
+      letter-spacing: 0.03em;
+      color: var(--white);
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.5s;
+    }
+    .hero h1 span { color: var(--foam); }
+    .hero-sub {
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      font-weight: 300;
+      color: rgba(232,247,253,0.75);
+      max-width: 520px;
+      margin: 1.5rem auto 2.5rem;
+      line-height: 1.7;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.7s;
+    }
+    .hero-btn {
+      display: inline-block;
+      padding: 0.85rem 2.5rem;
+      background: var(--accent);
+      color: var(--deep);
+      font-family: 'Barlow', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.9s;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .hero-btn:hover { background: #ffc04a; transform: translateY(-2px); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(2, 13, 26, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(125,216,245,0.15);
+      padding: 0.85rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .nav-brand {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.08em;
+      color: var(--foam);
+    }
+    .nav-links { display: flex; gap: 0.25rem; flex-wrap: wrap; }
+    .nav-links a {
+      color: rgba(232,247,253,0.65);
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.4rem 0.8rem;
+      border-radius: 2px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-links a:hover { color: var(--foam); background: rgba(125,216,245,0.1); }
+
+    /* ── SECTION WRAPPER ── */
+    section { padding: 5rem 2rem; max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+    .section-intro {
+      font-size: 1.05rem;
+      font-weight: 300;
+      line-height: 1.75;
+      color: rgba(232,247,253,0.7);
+      max-width: 640px;
+      margin-bottom: 3.5rem;
+    }
+    .divider {
+      border: none;
+      border-top: 1px solid rgba(125,216,245,0.12);
+      margin: 0;
+    }
+
+    /* ── EQUIPMENT GRID ── */
+    .gear-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .gear-card {
+      background: rgba(5, 53, 84, 0.4);
+      border: 1px solid rgba(125,216,245,0.12);
+      border-radius: 6px;
+      padding: 2rem;
+      transition: transform 0.25s, border-color 0.25s, background 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .gear-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--surface), var(--foam));
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+    .gear-card:hover { transform: translateY(-4px); border-color: rgba(125,216,245,0.35); background: rgba(5,53,84,0.65); }
+    .gear-card:hover::before { opacity: 1; }
+
+    .gear-icon { font-size: 2.8rem; margin-bottom: 1rem; display: block; }
+    .gear-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.04em;
+      color: var(--foam);
+      margin-bottom: 0.6rem;
+    }
+    .gear-desc {
+      font-size: 0.95rem;
+      font-weight: 300;
+      line-height: 1.7;
+      color: rgba(232,247,253,0.72);
+    }
+    .gear-tip {
+      margin-top: 1rem;
+      padding: 0.65rem 0.9rem;
+      background: rgba(244,161,36,0.1);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 3px 3px 0;
+      font-size: 0.82rem;
+      color: rgba(244,161,36,0.9);
+      line-height: 1.5;
+    }
+    .gear-tip strong { color: var(--accent); }
+
+    /* ── SAFETY SECTION ── */
+    #safety { background: rgba(5,53,84,0.2); border-radius: 8px; padding: 4rem 2rem; margin: 0 auto; max-width: 1100px; }
+    .safety-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.25rem;
+      margin-top: 2rem;
+    }
+    .safety-card {
+      padding: 1.5rem;
+      border: 1px solid rgba(125,216,245,0.1);
+      border-radius: 5px;
+      background: rgba(2,13,26,0.5);
+    }
+    .safety-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.5rem;
+      color: rgba(125,216,245,0.2);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+    .safety-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--foam);
+      margin-bottom: 0.5rem;
+    }
+    .safety-text { font-size: 0.875rem; font-weight: 300; line-height: 1.65; color: rgba(232,247,253,0.65); }
+
+    /* ── BEGINNER TIPS ── */
+    .tips-list { list-style: none; display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; }
+    .tips-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.25rem 1.5rem;
+      background: rgba(5,53,84,0.3);
+      border-radius: 5px;
+      border: 1px solid rgba(125,216,245,0.08);
+      font-size: 0.95rem;
+      font-weight: 300;
+      line-height: 1.65;
+      color: rgba(232,247,253,0.75);
+    }
+    .tips-list li .tip-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 0.1rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      border-top: 1px solid rgba(125,216,245,0.1);
+      font-size: 0.82rem;
+      color: rgba(232,247,253,0.35);
+      letter-spacing: 0.05em;
+    }
+    footer span { color: var(--foam); }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="bubbles">
+      <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
+      <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
+      <div class="bubble"></div>
+    </div>
+    <p class="hero-tag">Your Complete Beginner's Guide</p>
+    <h1>Scuba <span>Diving</span><br>Equipment</h1>
+    <p class="hero-sub">Everything you need to know about the gear that keeps you safe, comfortable, and breathing underwater.</p>
+    <a href="#gear" class="hero-btn">Explore the Gear</a>
+  </div>
+
+  <!-- STICKY NAV -->
+  <nav>
+    <span class="nav-brand">🤿 ScubaGuide</span>
+    <div class="nav-links">
+      <a href="#gear">Equipment</a>
+      <a href="#safety">Safety</a>
+      <a href="#tips">Beginner Tips</a>
+    </div>
+  </nav>
+
+  <!-- EQUIPMENT SECTION -->
+  <section id="gear">
+    <p class="section-label">The Essentials</p>
+    <h2 class="section-title">Scuba Equipment Guide</h2>
+    <p class="section-intro">Every piece of scuba gear plays a specific role in keeping you safe and comfortable under the water. Here's what each item is and what it does.</p>
+
+    <div class="gear-grid">
+
+      <div class="gear-card">
+        <span class="gear-icon">🎭</span>
+        <div class="gear-name">Mask</div>
+        <p class="gear-desc">A scuba mask creates an air space in front of your eyes so you can see clearly underwater. Without it, your vision would be blurry because water refracts light differently than air.</p>
+        <div class="gear-tip"><strong>Tip:</strong> Test the fit by placing the mask on your face (no strap) and inhaling gently through your nose — it should stay on without you holding it.</div>
+      </div>
+
+      <div class="gear-card">
+        <span class="gear-icon">🫧</span>
+        <div class="gear-name">Regulator</div>
+        <p class="gear-desc">The regulator connects to your tank and reduces the high-pressure air to a pressure you can breathe. It delivers air on demand — only when you inhale — making it the most critical piece of equipment.</p>
+        <div class="gear-tip"><strong>Tip:</strong> Always get your regulator serviced annually by a certified technician.</div>
+      </div>
+
+      <div class="gear-card">
+        <span class="gear-icon">🪣</span>
+        <div class="gear-name">BCD (Buoyancy Control Device)</div>
+        <p class="gear-desc">The BCD is an inflatable jacket that lets you control whether you sink, rise, or hover in place. You inflate it to go up and deflate it to go down. It also holds your tank securely on your back.</p>
+        <div class="gear-tip"><strong>Tip:</strong> Mastering your BCD is the key to effortless, fish-like movement in the water.</div>
+      </div>
+
+      <div class="gear-card">
+        <span class="gear-icon">🛢️</span>
+        <div class="gear-name">Tank (Cylinder)</div>
+        <p class="gear-desc">The scuba tank stores compressed air (or other breathing gases) at very high pressure — typically 200 bar / 3000 psi. Aluminum and steel are the two most common materials.</p>
+        <div class="gear-tip"><strong>Tip:</strong> Tanks must be hydrostatically tested every few years. Always check the test date stamped on the tank.</div>
+      </div>
+
+      <div class="gear-card">
+        <span class="gear-icon">🧥</span>
+        <div class="gear-name">Wetsuit / Drysuit</div>
+        <p class="gear-desc">A wetsuit traps a thin layer of water against your skin that your body warms up, keeping you insulated. A drysuit keeps you completely dry and is used in colder water. They come in different thicknesses for different temperatures.</p>
+        <div class="gear-tip"><strong>Tip:</strong> In Australia's warmer waters, a 3mm wetsuit is usually enough. In cold water, go for 5mm or more.</div>
+      </div>
+
+      <div class="gear-card">
+        <span class="gear-icon">🦶</span>
+        <div class="gear-name">Fins</div>
+        <p class="gear-desc">Fins attach to your feet and give you the power to move efficiently through the water. They let you swim with minimal arm effort, saving air and energy. There are full-foot fins and open-heel fins (worn with booties).</p>
+        <div class="gear-tip"><strong>Tip:</strong> Never use your arms to swim — let your fins do all the work!</div>
+      </div>
+
+      <div class="gear-card">
+        <span class="gear-icon">⚖️</span>
+        <div class="gear-name">Weight System</div>
+        <p class="gear-desc">Wetsuits and your body are naturally buoyant, so you need weights to help you sink and stay neutrally buoyant underwater. Weights are worn on a weight belt or integrated into your BCD pockets.</p>
+        <div class="gear-tip"><strong>Tip:</strong> The right amount of weight lets you float at eye level when you hold a normal breath at the surface.</div>
+      </div>
+
+      <div class="gear-card">
+        <span class="gear-icon">📊</span>
+        <div class="gear-name">Dive Computer</div>
+        <p class="gear-desc">A dive computer tracks your depth and time and calculates how long you can safely stay at each depth to avoid decompression sickness (the bends). It's worn like a watch on your wrist.</p>
+        <div class="gear-tip"><strong>Tip:</strong> Modern dive computers are beginner-friendly and essentially replace manual dive tables. Every diver should have one.</div>
+      </div>
+
+      <div class="gear-card">
+        <span class="gear-icon">🔦</span>
+        <div class="gear-name">Dive Light</div>
+        <p class="gear-desc">Even in clear water, colours disappear as you go deeper (red is gone by 5m!). A dive torch restores colours and lets you peek into crevices, caves, and night dive environments.</p>
+        <div class="gear-tip"><strong>Tip:</strong> Even on daytime dives, a small torch is great for illuminating reef cracks and seeing fish hiding inside.</div>
+      </div>
+
+      <div class="gear-card">
+        <span class="gear-icon">🗣️</span>
+        <div class="gear-name">Surface Marker Buoy (SMB)</div>
+        <p class="gear-desc">An SMB is an inflatable tube you send to the surface at the end of a dive to signal your position to your boat or shore support. It's a vital safety tool, especially in open water.</p>
+        <div class="gear-tip"><strong>Tip:</strong> Always carry an SMB — boats can't see you in the water without one!</div>
+      </div>
+
+      <div class="gear-card">
+        <span class="gear-icon">🩱</span>
+        <div class="gear-name">Dive Hood & Gloves</div>
+        <p class="gear-desc">In colder water, a hood stops heat loss from your head (which can account for a large amount of body heat loss), and gloves protect your hands from the cold and from accidental scrapes on the reef.</p>
+        <div class="gear-tip"><strong>Tip:</strong> In many places, gloves are discouraged to prevent divers from accidentally touching delicate coral.</div>
+      </div>
+
+      <div class="gear-card">
+        <span class="gear-icon">👀</span>
+        <div class="gear-name">Snorkel</div>
+        <p class="gear-desc">A snorkel lets you breathe at the surface without using your tank air. It's used while swimming on the surface before and after a dive to conserve your tank supply.</p>
+        <div class="gear-tip"><strong>Tip:</strong> Simple J-shaped snorkels are more reliable than fancy purge-valve ones — fewer parts to break!</div>
+      </div>
+
+    </div>
+  </section>
+  <hr class="divider">
+
+  <!-- SAFETY SECTION -->
+  <section id="safety" style="max-width:1100px; padding: 5rem 2rem;">
+    <p class="section-label">Stay Safe Down There</p>
+    <h2 class="section-title">Diving Safety Rules</h2>
+    <p class="section-intro">Scuba diving is a very safe sport when you follow the rules. These are the golden principles every diver must know.</p>
+    <div class="safety-grid">
+      <div class="safety-card">
+        <div class="safety-num">01</div>
+        <div class="safety-title">Never Hold Your Breath</div>
+        <p class="safety-text">Always breathe continuously. Holding your breath while ascending can cause a lung overexpansion injury — the most serious scuba injury.</p>
+      </div>
+      <div class="safety-card">
+        <div class="safety-num">02</div>
+        <div class="safety-title">Ascend Slowly</div>
+        <p class="safety-text">Rise no faster than 9–18 metres per minute. Ascending too fast can cause decompression sickness (the bends), where nitrogen bubbles form in your blood.</p>
+      </div>
+      <div class="safety-card">
+        <div class="safety-num">03</div>
+        <div class="safety-title">Always Dive with a Buddy</div>
+        <p class="safety-text">Never dive alone. Your buddy is your first line of help if something goes wrong. Stay within arm's reach of each other.</p>
+      </div>
+      <div class="safety-card">
+        <div class="safety-num">04</div>
+        <div class="safety-title">Plan Your Dive</div>
+        <p class="saudi-text">Agree on the maximum depth, time, and air turn-around point before entering the water. "Plan the dive, dive the plan."</p>
+      </div>
+      <div class="safety-card">
+        <div class="safety-num">05</div>
+        <div class="safety-title">Check Your Gear</div>
+        <p class="safety-text">Always do a buddy check (BWRAF) before every single dive — no exceptions, even experienced divers do this.</p>
+      </div>
+      <div class="safety-card">
+        <div class="safety-num">06</div>
+        <div class="safety-title">Don't Fly After Diving</div>
+        <p class="safety-text">Wait at least 12–24 hours after diving before flying. The change in cabin pressure can trigger decompression sickness.</p>
+      </div>
+    </div>
+  </section>
+  <hr class="divider">
+
+  <!-- BEGINNER TIPS -->
+  <section id="tips">
+    <p class="section-label">Just Starting Out?</p>
+    <h2 class="section-title">Tips for New Divers</h2>
+    <p class="section-intro">Everyone starts as a beginner. Here's what experienced divers wish they'd known on their first dives.</p>
+    <ul class="tips-list">
+      <li><span class="tip-icon">🎓</span><div><strong style="color:var(--foam)">Get certified first.</strong> Take an Open Water course through PADI, SSI, or NAUI. You'll learn everything you need in a structured, safe environment with a professional instructor.</div></li>
+      <li><span class="tip-icon">💨</span><div><strong style="color:var(--foam)">Relax and breathe slowly.</strong> Slow, deep breathing conserves air and keeps you calm. Anxious, shallow breathing burns through your tank much faster.</div></li>
+      <li><span class="tip-icon">🐡</span><div><strong style="color:var(--foam)">Don't touch anything.</strong> Coral, rocks, and sea creatures can be harmed by touch — and some can harm you back! Keep your hands to yourself and your fins clear of the reef.</div></li>
+      <li><span class="tip-icon">👂</span><div><strong style="color:var(--foam)">Equalise your ears early and often.</strong> As you descend, equalise the pressure in your ears every metre or so (pinch nose, blow gently). Don't wait until it hurts.</div></li>
+      <li><span class="tip-icon">🔋</span><div><strong style="color:var(--foam)">Rent gear before you buy.</strong> Try different equipment through rental before spending money on your own kit. Your first big purchase should be a well-fitting mask and fins.</div></li>
+      <li><span class="tip-icon">📓</span><div><strong style="color:var(--foam)">Keep a dive log.</strong> Record every dive — depth, time, location, and what you saw. It's satisfying to look back on, and some advanced courses require a certain number of logged dives.</div></li>
+    </ul>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Built with 💙 for ocean explorers &nbsp;|&nbsp; <span>ScubaGuide</span> &nbsp;|&nbsp; Always dive with a certified instructor</p>
+  </footer>
+
+</body>
+</html>
